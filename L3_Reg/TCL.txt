@@ -1,0 +1,64 @@
+source updown_counter_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Testing count up to maximum ...
+Testing count down to minimum ...
+Testing count up with overflow ...
+Testing count down with underflow ...
+Note: SIMULATION ENDED
+Time: 270 ns  Iteration: 0  Process: /updown_counter_tb/STIM_PROC  File: /media/student/CNCSTICK/LDD-master-new/LDD1/L3_Register/sources/updown_counter_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'updown_counter_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+
+
+
+source program_counter_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Test count...
+Test load...
+Test count...
+Test async reset...
+Note: SIMULATION ENDED
+Time: 141 ns  Iteration: 0  Process: /program_counter_tb/STIM_PROC  File: /media/student/CNCSTICK/LDD-master-new/LDD1/L3_Register/sources/program_counter_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'program_counter_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+
+
+
+
+source basic_register_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Test load...
+Test load (2)...
+Test hold...
+Test (async) reset...
+Note: SIMULATION ENDED
+Time: 111 ns  Iteration: 0  Process: /basic_register_tb/STIM_PROC  File: /media/student/CNCSTICK/LDD-master-new/LDD1/L3_Register/sources/basic_register_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'basic_register_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns

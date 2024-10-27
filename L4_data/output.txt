@@ -1,0 +1,62 @@
+source register_file_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+SUCCESS: write register 0.
+SUCCESS: write register 1.
+SUCCESS: write register 2.
+SUCCESS: write register 3.
+SUCCESS: read register 0.
+SUCCESS: read register 1.
+SUCCESS: read register 2.
+SUCCESS: read register 3.
+SUCCESS: reset.
+Note: Simulation ended.
+Time: 110 ns  Iteration: 1  Process: /register_file_tb/STIM_PROC  File: /media/student/CNC/LDD-master/LDD1/L4_Data_Path/sources/register_file_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'register_file_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+
+
+
+
+source data_path_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+SUCCESS: cpu bus selection (dibr)
+SUCCESS: cpu bus selection (register 0)
+SUCCESS: cpu bus selection (pc)
+SUCCESS: cpu bus selection (register 2)
+SUCCESS: cpu bus selection (sp)
+SUCCESS: cpu bus selection (register 4)
+SUCCESS: cpu bus selection (ir_l)
+SUCCESS: cpu bus selection (register 6)
+SUCCESS: cpu bus selection (iv)
+SUCCESS: cpu bus selection (register 7)
+SUCCESS: alu SWAP operation and cpu bus selection (alu output)
+SUCCESS: alu NOT operation and cpu bus selection (alu output)
+SUCCESS: alu RL operation and cpu bus selection (alu output)
+SUCCESS: alu RL operation and cpu bus selection (alu output)
+SUCCESS: alu CMP operation
+SUCCESS: alu CMP operation
+SUCCESS: alu SUB operation
+SUCCESS: move R4 -> R3
+Note: Simulation ended.
+Time: 302 ns  Iteration: 0  Process: /data_path_tb/STIM_PROC  File: /media/student/CNC/LDD-master/LDD1/L4_Data_Path/sources/data_path_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'data_path_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 10284.969 ; gain = 1.004 ; free physical = 7097 ; free virtual = 12039
