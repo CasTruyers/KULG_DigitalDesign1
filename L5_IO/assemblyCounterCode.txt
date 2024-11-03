@@ -1,0 +1,102 @@
+; Program for the LDDI Mark II processor
+; All numbers are hexadecimal
+
+; The assembler is not case-sensitive!
+
+; ADDRESS SPACE:
+;   ROM: 00 - 7F (128 bytes)
+;   RAM: 80 - 9F (32 bytes)
+;   I/O: A0 - FF (not all addresses are used currently!)
+;
+; Peripheral addresses:
+;   Interrupt control
+#define IRQE	C0	; interrupt enable
+#define IRQF	C1	; interrupt flags
+;   Timers
+#define TMR1S	D8	; 1 second timer control
+#define T1S_ON	01	; write T1S_ON to TMR1S to start the timer
+#define T1S_OFF	00	; write T1S_OFF to TMR1S to stop the timer
+;   Bi-stable switches
+#define SW_L	E0	; SW 0 - 7
+#define SW_H	E1	; SW 8 - 15
+;   Push buttons
+#define BTNS	E8	; push buttons
+;   LEDs
+#define LEDS_L	F0	; LED 0 - 7
+#define LEDS_H	F1	; LED 8 - 15
+;   7-segment display (lower 4 segments)
+#define BCD0	F8	; Segment 0
+#define BCD1	F9	; Segment 1
+#define BCD2	FA	; Segment 2
+#define BCD3	FB	; Segment 3
+
+; Define registers for digits
+#define D0	R3	; Least significant digit
+#define D1	R4
+#define D2	R5
+#define D3	R6	; Most significant digit
+
+; program start
+reset:	; needs to be the first label
+	jump setup
+
+; interrupt service routine
+isr:	; needs to be the second label
+	ldr	R0, IRQF	; Read interrupt flags (also clears them)
+	andl	R0, 04		; Check if timer interrupt (bit 2) is set
+	jz	no_timer_irq	; If not set, skip incrementing
+	call	inc_counter	; Increment the counter
+no_timer_irq:
+	reti			; Return from interrupt
+
+; do some initial (one-time-only) setup
+setup:
+	; Enable timer interrupt
+	movl	R0, 04		; Bit 2: Timer interrupt enable
+	str	IRQE, R0
+	; Start the 1-second timer
+	movl	R0, T1S_ON
+	str	TMR1S, R0
+	jmp	loop		; Jump to main loop
+
+loop:	; continuously loop through instructions
+	; Update the 7-segment displays with current counter value
+	str	BCD3, D3
+	str	BCD2, D2
+	str	BCD1, D1
+	str	BCD0, D0
+	jmp	loop		; Repeat indefinitely
+
+; Subroutine to increment the counter
+inc_counter:
+	inc	D0		; Increment least significant digit
+	cmpl	D0, 0A		; Compare D0 with 10
+	je	inc_d1		; If equal, increment next digit
+	retc			; Return if no overflow
+
+inc_d1:
+	movl	D0, 00		; Reset D0 to 0
+	inc	D1		; Increment next digit
+	cmpl	D1, 0A		; Compare D1 with 10
+	je	inc_d2		; If equal, increment next digit
+	retc			; Return if no overflow
+
+inc_d2:
+	movl	D1, 00		; Reset D1 to 0
+	inc	D2		; Increment next digit
+	cmpl	D2, 0A		; Compare D2 with 10
+	je	inc_d3		; If equal, increment next digit
+	retc			; Return if no overflow
+
+inc_d3:
+	movl	D2, 00		; Reset D2 to 0
+	inc	D3		; Increment most significant digit
+	cmpl	D3, 0A		; Compare D3 with 10
+	je	reset_d3	; If equal, reset most significant digit
+	retc			; Return if no overflow
+
+reset_d3:
+	movl	D3, 00		; Reset D3 to 0
+	retc			; Return from subroutine
+
+; end of program
