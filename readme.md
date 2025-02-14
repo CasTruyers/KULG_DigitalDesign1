@@ -1,1 +1,1 @@
-# Digital Design 1
+# Digital Design sem1 and sem2
